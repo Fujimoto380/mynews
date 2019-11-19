@@ -30,9 +30,9 @@
                         <label class="col-md-2">性別</label>
                         <div class="col-md-10">
                             <select class="form-control" style="width: auto;" name="gender">
-                                <option>男</option>
-                                <option>女</option>
-                                <option>無回答</option>
+                                <option value="man" {{ old('gender')=='man' ? 'selected="selected"' : '' }}>男</option>
+                                <option value="woman" {{ old('gender')=='woman' ? 'selected="selected"' : '' }}>女</option>
+                                <option value="noanswer" {{ old('gender')=='noanswer' ? 'selected="selected"' : '' }}>無回答</option>
                             </select>
                         </div>
                     </div>

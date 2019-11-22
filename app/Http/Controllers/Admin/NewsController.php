@@ -17,7 +17,7 @@ class NewsController extends Controller
     {
         $this->validate($request, News::$rules);
         
-        $news = new Nwes;
+        $news = new News;
         $form = $request->all();
         
         if(isset($form['image'])) {

@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function create(Request $request)
     {
-      $this->validate($request, Profile::$rules);
+        $this->validate($request, Profile::$rules);
 
         $profile = new Profile;
         $form = $request->all();
@@ -27,6 +27,17 @@ class ProfileController extends Controller
         $profile->save();
         
         return redirect('admin/profile/create');
+    }
+
+    public function index(Request $request)
+    {
+        $cond_name = $request->cond_name;
+        if ($cond_name != '') {
+            $posts = Profile::where('name', $cond_name)->get();
+        } else {
+            $posts = Profile::all();
+        }
+        return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
     }
 
     public function edit(Request $request)
@@ -49,4 +60,11 @@ class ProfileController extends Controller
         
         return redirect('admin/profile');
     }
+
+    public function delete(Request $request)
+    {
+        $profile = Profile::find($request->id);
+        $profile->delete();
+        return redirect('admin/profile');
+  }
 }

@@ -1,32 +1,56 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            body {
-                color: #636b6f;
-                letter-spacing: 1px;
-                font-family:"Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
-            }
-            h1,footer {
-                text-align: center;
-            }
-            header {
-                padding-top: 250px;
-            }
-        </style>
-        <title>profile</title>
-    </head>
-    <body>
-        <header>
-            <h1>profile編集画面</h1>
-        </header>
-        <div class="main">
+@extends('layouts.admin')
+@section('title', 'プロフィールの編集')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2>プロフィール編集</h2>
+                <form action="{{ action('Admin\ProfileController@update') }}" method="post" enctype="multipart/form-data">
+                    @if (count($errors) > 0)
+                        <ul>
+                            @foreach($errors->all() as $e)
+                                <li>{{ $e }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    <div class="form-group row">
+                        <label class="col-md-2" for="name">名前</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="name" value="{{ $profile_form->name }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="gender">性別</label>
+                        <div class="col-md-10">
+                            <select class="form-control" style="width: auto;" name="gender">
+                                <option value="man" {{ $profile_form->gender=='man' ? 'selected="selected"' : '' }}>男</option>
+                                <option value="woman" {{ $profile_form->gender=='woman' ? 'selected="selected"' : '' }}>女</option>
+                                <option value="noanswer" {{ $profile_form->gender=='noanswer' ? 'selected="selected"' : '' }}>無回答</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="hobby">趣味</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="hobby" value="{{ $profile_form->hobby }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2" for="introduction">自己紹介欄</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="introduction" rows="20">{{ $profile_form->introduction }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="hidden" name="id" value="{{ $profile_form->id }}">
+                            {{ csrf_field() }}
+                            <input type="submit" class="btn btn-primary" value="更新">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <footer>
-            <small>&copy; 2019 TechBoost PHP/Laravelコース課題</small>
-        </footer>
-    </body>
-</html>
+    </div>
+@endsection

@@ -2,7 +2,7 @@
 @section('title', 'ニュース一覧')
 
 @section('content')
-    <p class="newslist">ニュース一覧</p>
+    <p class="newslist">最新ニュース一覧</p>
     <div class="container">
         <hr color="#c0c0c0">
         @if (!is_null($headline))
